@@ -5,7 +5,7 @@ from time import sleep
 from random import choice
 
 def Carregamento_Excel(arquivo_excel, index_coluna):
-    df = pd.read_excel(arquivo_excel)   
+    df = pd.read_excel(arquivo_excel)
     df.set_index(index_coluna).T.to_dict('list')
     return df.to_dict(orient='list')
 
@@ -62,10 +62,10 @@ class Cadastro_Maq:
             self.descricao = str(input('Descrição: '))
             self.preco = int(input('Valor Unitário: '))
             self.qtd = int(input('Quantidade de Estoque: '))
-            
+
             df = pd.DataFrame(data=dicionario)
             df.to_excel(nome_arquivo,index=False)
-            
+
             print(dicionario)
             print('\nCadastro de máquinas feito com sucesso!')
 

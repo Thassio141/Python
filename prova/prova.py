@@ -1,4 +1,3 @@
-import pandas as pd
 from funcoes import Carregamento_Excel,Cadastro,Cadastro_Maq, Gerar_Codigo, desligar, dict_data
 
 # ideia , e se eu localizar a posição da informação no dicionario e localizar as outras pela mesma posição da primeira ja que estão em ordem
@@ -20,7 +19,7 @@ try:
 except FileNotFoundError:
     pass
 
-dict_registro_venda = {'Código':[],'CPF Vendedor':[],'Data da Venda':[]}
+dict_registro_venda = {'Código':[],'CPF Vendedor':[],'Data da Venda':[]} 
 try:
     dict_registro_venda = Carregamento_Excel('registro_vendas.xlsx','Código')
 except FileNotFoundError:
@@ -101,7 +100,7 @@ Sair.....................[10]
     if opcao == '10':
         desligar()
         break
-   
+
 '''
 h) Relatório de Vendas; (1,0) 
 i. Exibe todos as vendas registradas com as seguintes informações: Código  
