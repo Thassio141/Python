@@ -7,7 +7,7 @@ try :
 except FileNotFoundError:
     pass
 
-dict_maquinas = {'Código':['123'],'Descrição':['Trator'],'Preço Unitário':[200],'Quantidade de Estoque':[4]}
+dict_maquinas = {'Código':[],'Descrição':[],'Preço Unitário':[],'Quantidade de Estoque':[]}
 try:
     dict_maquinas = Carregamento_Excel('maquinas.xlsx','Código')
 except FileNotFoundError:
@@ -26,7 +26,7 @@ except FileNotFoundError:
     pass
 
 while True:
-    
+
     opcao = str(input('''
 \nCadastrar Vendedor.......[1]
 Cadastrar Maquinas.......[2]
@@ -39,7 +39,7 @@ Relatório de Vendas......[8]
 Relatório de Comissões...[9]
 Sair.....................[10]
     \n\033[1;33mDigite sua opção: \033[m'''))
-    
+
     if opcao == '1':
         Cadastro(dict_vendedor,dict_cliente,'vendedores.xlsx')
 
@@ -49,38 +49,43 @@ Sair.....................[10]
     if opcao == '3':
         Cadastro(dict_cliente,dict_vendedor,'clientes.xlsx')
 
+    '''
+    b. Após isso deverá informar os itens a serem registrados nessa venda: código da  máquina, quantidade vendida; deve permitir inserir mais de um item na venda; 
+    c. Os valores de CPF do vendedor, CPF do cliente e código da máquina devem ser  válidos, ou sejam, devem estar cadastrados no sistema; 
+    d. Quando ocorre o registro da venda, o cadastro da máquina deve ser atualizado  para que a quantidade de estoque seja baixada; 
+    '''
     if opcao == '4':
-        opcao = str(input('''
-    Colocar o Código:
-    Manualmente...............[1]
-    Geral Código Automatico...[2]
-    \n\033[1;33mDigite sua opção: \033[m'''))
+        codigo = str(input('Digite o código de venda(letras e números): '))
 
-        if opcao == '1':
-            codigo = str(input('Digite o código: '))
-
-            if codigo not in dict_registro_venda['Código']:
-                cpf = str(input('CPF do vendedor: '))
-
-                if cpf in dict_vendedor['CPF']:
-                    data = str(input('Data: '))
-
-                elif cpf not in dict_vendedor['CPF']:
-                    print('Esse CPF não foi cadastrado!')
-            
-            elif codigo in dict_registro_venda['Código']:
-                print('Esse código já está sendo usado!')
-
-        if opcao == '2':
-            var = Gerar_Codigo()
-            print(f'\nSeu código é: {var}')
-            cpf = str(input('CPF do vendedor: '))
+        if codigo not in dict_registro_venda['Código']:
+            cpf = int(input('CPF do vendedor: '))
 
             if cpf in dict_vendedor['CPF']:
                 data = str(input('Data: '))
+                print('\n')
+                dict_data(dict_maquinas)
+                
+                while True:
+                    codigo = str(input('Código da máquina(letras e números): '))
+                    if codigo in dict_maquinas['Código']:
+                        qtd = int(input('Quantidade de máquinas que deseja comprar: '))
+                        
+                        if qtd > x:# quantidade registrada no dicionario
+                            pass
 
+                        else:
+                            pass
+                            # reduzir do cpf e do dicionario
+                    
+                    elif codigo not in dict_maquinas['Código']:
+                        print('Máquina não cadastrada!')
+                    
+                    
             elif cpf not in dict_vendedor['CPF']:
                 print('Esse CPF não foi cadastrado!')
+        
+        elif codigo in dict_registro_venda['Código']:
+            print('Esse código já está sendo usado!')
         
     if opcao == '5':
         dict_data(dict_vendedor)
@@ -100,23 +105,3 @@ Sair.....................[10]
     if opcao == '10':
         desligar()
         break
-
-'''
-h) Relatório de Vendas; (1,0) 
-i. Exibe todos as vendas registradas com as seguintes informações: Código  
-da venda, Data da venda, Nome do vendedor, nome do cliente valor total  
-da venda; 
-ii. Para cada venda registrada deve exibir os itens vendidos logo abaixo com  
-as seguintes informações: descrição da máquina, quantidade vendida, 
-preço unitário, valor total do item de venda (quantidade * preço unitário); 
-Código da venda: 1 
-Data da venda:23/11/2021 
-Nome do vendedor: João 
-Nome do cliente: Maria 
-Valor total da venda: 200,00
-Descrição da máquina 	Quantidade vendida 	Preço unitário 	Valor total do item
-Compressor 	2 	50,00 	100,00
-Perfurador 	1 	100 	100,00
-i) Relatório de Comissões; (1,0) 
-a. Exibe todos as comissões calculadas para as vendas realizadas com as seguintes  informações: Código da venda, Data da venda, Nome do vendedor, valor total da  venda, valor da comissão. 
-'''

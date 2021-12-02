@@ -13,11 +13,11 @@ def Carregamento_Excel(arquivo_excel, index_coluna):
 def Gerar_Codigo():
     tamanho = 5
     valores = string.ascii_lowercase + string.digits
-    senha = ''
+    codigo = ''
     for i in range(tamanho):
-        senha += choice(valores)
+        codigo += choice(valores)
 
-    return senha
+    return codigo
 
 def desligar():
     print('\nDesligando...')
@@ -35,7 +35,7 @@ class Cadastro:
     #colocar 4 items para incluir
     def __init__(self,dicionario,dicionario2,nome_arquivo):
         self.nome = str(input('\nNome: '))
-        self.cpf = str(input('CPF: '))
+        self.cpf = int(input('CPF: '))
 
         if self.cpf not in dicionario['CPF'] and self.cpf not in dicionario2['CPF']:
             self.data = str(input('Data de nascimento: '))
@@ -56,12 +56,16 @@ class Cadastro:
 
 class Cadastro_Maq:
     def __init__(self,dicionario,nome_arquivo):
-        self.codigo = str(input('Código: '))
+        self.codigo = str(input('Digite o código (letras e numeros): '))
 
         if self.codigo not in dicionario['Código']:
             self.descricao = str(input('Descrição: '))
             self.preco = int(input('Valor Unitário: '))
             self.qtd = int(input('Quantidade de Estoque: '))
+            dicionario['Código'] += [self.codigo]
+            dicionario['Descrição'] += [self.descricao]
+            dicionario['Preço Unitário'] += [self.preco]
+            dicionario['Quantidade de Estoque'] += [self.qtd]
 
             df = pd.DataFrame(data=dicionario)
             df.to_excel(nome_arquivo,index=False)
